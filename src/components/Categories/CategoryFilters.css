@@ -1,0 +1,26 @@
+.category-list {
+    min-width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    color: white;
+    background-color: #222f3e;
+  }
+  
+  .category-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+    text-wrap: nowrap;
+    cursor: pointer;
+  }
+  .category-item:hover,
+  .category-item:active {
+    outline: 1.25px solid #fff;
+  }
+  

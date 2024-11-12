@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import AmazonLogo from "../../assets/amazonLogo.svg";
 import locationPin from "../../assets/location-pin.svg";
 import CartIcon from "../../assets/cart.svg";
@@ -9,13 +9,13 @@ import './Header.css';
 export default function Header() {
     console.log("Header");
     return (
-        <div className="flex gap-1 items-center px-1 py-4 bg-[#131921]">
+        <div className="flex gap-2 items-center px-1 py-4 bg-[#131921]">
             {/* Amazon Logo */}
 
             <Link to={"/"}>
                 <HeaderContainer>
                     <img
-                        className = "w-32 max-h-[50px]"
+                        className = "w-32 max-h-[50px] p-1"
                         src = {AmazonLogo}
                         alt = "Amazon Logo"
                     />
@@ -25,7 +25,7 @@ export default function Header() {
             {/* Location Box */}
 
             <HeaderContainer>
-                <div className="h-full flex gap-0.5 items-center p-0.5" >
+                <div className="h-full flex gap-1 items-center p-0.5" >
                     <img
                         className="pb-2 h-7 self-end"
                         src={locationPin}
@@ -107,9 +107,9 @@ export default function Header() {
     );
 }
 
-const HeaderContainer = ({ children }) => {
+const HeaderContainer = ({children}) => {
     return (
-        <div className="min-h-full flex p-1 items-end self-stretch rounded-sm outline-none hover:outline-[1.4px] hover:outline-white active:outline-[1.4px] active:outline-white">
+        <div className="min-h-full flex items-end self-stretch rounded-sm outline-none hover:outline-[1.4px] hover:outline-white active:outline-[1.4px] active:outline-white">
             {children}
         </div>
     );
