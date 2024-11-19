@@ -1,16 +1,21 @@
 import React from "react";
-import "./CategoryFilters.css";
-import hamBurgerIcon from "../../assets/hamburger-icon.svg";
+// import "./CategoryFilter.css";
+import hamBurgerIcon from "../assets/hamburger-icon.svg"
 
-export default function CategoryFilters({openSidebar}) {
+export default function CategoryFilters({ openSidebar }) {
   return (
-    <ul className="category-list">
-      <li className="category-item" onClick = {openSidebar}>
+    <ul className="min-w-full max-w-full h-fit flex gap-1 p-1 text-white bg-[#222f3e] overflow-clip">
+      <li
+        className="flex justify-center items-center p-2.5 rounded-sm text-center text-nowrap cursor-pointer outline-none hover:outline-[1.25px] hover:outline-white"
+        onClick={openSidebar}
+      >
         <img src= {hamBurgerIcon} alt="menu-icon" />
         All
       </li>
-      {item.map((item, index) => (
-        <li key = {index} className="category-item">{item}</li>
+      {item.map((item) => (
+        <li className="flex justify-center items-center p-2.5 rounded-sm text-center text-nowrap cursor-pointer outline-none hover:outline-[1.25px] hover:outline-white">
+          {item}
+        </li>
       ))}
     </ul>
   );
