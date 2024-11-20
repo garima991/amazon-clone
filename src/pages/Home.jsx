@@ -19,18 +19,24 @@ export default function Home() {
             {sampleCardData.map((card) => (
               <Card data={card} name={1} />
             ))}
+
+            <div className="products w-full flex flex-wrap justify-between gap-4 mx-auto mt-8 py-2 outline-1 outline-slate-200">
+              {data.slice(0, 10).map((product) => (
+                <ProductCard data={product} />
+              ))}
+            </div>
+            <div className="products w-full flex flex-wrap justify-between gap-4 mx-auto mt-8 py-2">
+              {data.slice(11, 21).map((product) => (
+                <ProductCard data={product} />
+              ))}
+            </div>
+            <div className="products w-full flex flex-wrap justify-between gap-4 mx-auto mt-8 py-2">
+              {data.slice(21, 31).map((product) => (
+                <ProductCard data={product} />
+              ))}
+            </div>
           </div>
         </div>
-        <div className = "products w-full flex flex-wrap justify-between gap-4 mx-auto mt-8 py-2 outline-1 outline-slate-200">
-            {data.slice(0,10).map((product) => (
-              <ProductCard data = {product} />
-            ))}
-          </div>
-          <div className = "products w-full flex flex-wrap overflow-auto justify-between gap-4 mx-auto mt-8 py-2">
-            {data.slice(11).map((product) => (
-              <ProductCard data = {product} />
-            ))}
-          </div>
       </div>
     </div>
   );

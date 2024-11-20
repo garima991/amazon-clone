@@ -1,7 +1,17 @@
-import "./Cart.css";
+import { addToCart, removeFromCart } from "../features/cartSlice";
+import { useDispatch} from "react-redux";
 
 const CartProduct = ({ data }) => {
-  const { product_id, product_name, img_link, actual_price, discounted_price, quantity } = data;
+  const dispatch = useDispatch();
+  
+  const {
+    product_id,
+    product_name,
+    img_link,
+    actual_price,
+    discounted_price,
+    quantity,
+  } = data;
   return (
     <div
       key={product_id}
@@ -15,27 +25,33 @@ const CartProduct = ({ data }) => {
         />
       </div>
       <div className="cart-item-details w-3/4 pl-6 flex flex-col justify-between">
-        <p className="text-xl font-semibold text-gray-800">
-          {product_name}
-        </p>
+        <p className="text-xl font-semibold text-gray-800">{product_name}</p>
         <div className="product-pricing mt-2">
           <p className="text-lg font-semibold text-green-600">
             {discounted_price}
           </p>
-          <p className="text-sm text-gray-400 line-through">
-            {actual_price}
-          </p>
+          <p className="text-sm text-gray-400 line-through">{actual_price}</p>
         </div>
         <div className="flex justify-start items-center">
-        <div className="controls flex gap-3 border-3 border-solid border-orange-400 px-4 rounded-full w-[110px] justify-center">
-          <button className="control ">{quantity === 1 ? "🗑️" : "-"}</button>
-          <p>{quantity}</p>
-          <button className="control ">+</button>
-        </div>
-        
+          <div className="controls flex gap-3 border-3 border-solid border-orange-400 px-4 rounded-full w-[110px] justify-center">
+            <button
+              className="text-lg"
+              onClick={() =>
+                dispatch(removeFromCart({ product: data, quantity: 1 }))
+              }
+            >
+              {quantity === 1 ? "🗑️" : "-"}
+            </button>
+            <p>{quantity}</p>
+            <button
+              className="text-lg"
+              onClick={() => dispatch(addToCart(data))}
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
-      
     </div>
   );
 };

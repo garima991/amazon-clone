@@ -1,41 +1,52 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams , useNavigate, Link} from "react-router-dom";
+import SearchedProduct from "../components/SearchedProduct";
+import {data} from "../productData.js";
 
 const Search = () => {
-  const resultProducts = [];
-  const params = useParams();
-  return (
-    <div className="text-6xl text-wrap flex flex-wrap">
-      This is Search Page : {JSON.stringify(params)} 
-    </div>
-  );
-};
+  const { searchId} = useParams(); // Get the search term from the URL parameter
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [inputValue, setInputValue] = useState(searchId || ""); // Controlled input state
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    // Filter products based on the search term
+    if (searchId) {
+      const filtered = data.filter((product) =>
+        product.product_name.toLowerCase().includes(searchId.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(data); // Show all products if no search term
+    }
+  }, [searchId]);
 
-const SearchedProduct = ({ data, cartData, updateCart }) => {
-  const {
-    product_name,
-    img_link,
-    discounted_price,
-    quantity,
-    selected = false,
-  } = data;
-  console.log(data, selected);
+  const handleSearchChange = (e) => {
+    const newSearchTerm = e.target.value;
+    setInputValue(newSearchTerm);
+    navigate(`/search/${newSearchTerm}`); // Update the URL dynamically
+  };
+
   return (
-    <div className="cart-product flex gap-3 p-4 max-w-[1140px]">
-      <img src={img_link} className="max-w-[180px]" />
-      <div className="details">
-        <div className="info">
-          <div className="flex flex-col">
-            <div>{product_name}</div>
+    <div className="search-page p-4">
+      <h2 className="search-results-title text-xl font-semibold text-gray-800 mb-4">
+        Search Results for:{" "}
+        <span className="text-yellow-500">{searchId || "All Products"}</span>
+      </h2>
+
+      {/* Display Filtered Products */}
+      <div className="search-results grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product, index) => (
+            <div key={product.product_id} className="search-result-item">
+            <div className="block">
+              <SearchedProduct data = {product} />
+            </div>
           </div>
-          <strong>{discounted_price}</strong>
-        </div>
-        <div className="controls">
-          <select>
-            <option>{quantity}</option>
-          </select>
-        </div>
+          ))
+        ) : (
+          <p className="text-gray-600 text-center">No products found.</p>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 // import "./CategoryFilter.css";
 import hamBurgerIcon from "../assets/hamburger-icon.svg"
+import { Link } from "react-router-dom";
 
 export default function CategoryFilters({ openSidebar }) {
   return (
@@ -13,8 +14,11 @@ export default function CategoryFilters({ openSidebar }) {
         All
       </li>
       {item.map((item) => (
+       
         <li className="flex justify-center items-center p-2.5 rounded-sm text-center text-nowrap cursor-pointer outline-none hover:outline-[1.25px] hover:outline-white">
-          {item}
+          <Link to = {`/product`} >
+            {item}
+          </Link>
         </li>
       ))}
     </ul>

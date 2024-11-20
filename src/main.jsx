@@ -12,33 +12,17 @@ import Home from "./pages/Home.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import Cart from "./pages/Cart.jsx";
 import Layout from "./layout.jsx";
+import App from "./App.jsx"
+import store from "./store/store.js";
+import { Provider } from "react-redux";
 
-const approutes = [
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/sign-in",
-    element: <SignIn />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
-];
 
-const layout = (element) => <Layout>{element}</Layout>
+// const layout = (element) => <Layout>{element}</Layout>
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={layout(<Home />)} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/cart" element={layout(<Cart />)} />
-        {/* <Route path="*" element={<div>404 Not Found</div>} /> */}
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>
 );

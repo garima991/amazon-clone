@@ -1,6 +1,6 @@
 // import "./Sidebar.css";
 import profileIcon from "../assets/profile.svg";
-import { Link } from "react-router-dom";
+import { Link , NavLink} from "react-router-dom";
 import chevron from "../assets/chevron.svg";
 import cross from "../assets/cross.svg";
 
@@ -13,7 +13,7 @@ const Sidebar = ({ open, onClose }) => {
         <div className="text-lg absolute top-0 left-0 z-[9] w-[360px] h-full bg-[white] flex flex-col overflow-y-auto">
           <button className="min-h-min px-8 py-2 bg-[#222F3E] font-bold text-[19px] leading-[25px] flex gap-2 text-white">
             <img src = {profileIcon} alt="" />
-            Hello, sign in
+            Hello, <NavLink to="/sign-in">sign in</NavLink>
           </button>
           {sidebarData.map((data) => (
             <ContentContainer data={data} />

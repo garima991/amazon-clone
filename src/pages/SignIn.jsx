@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AmazonLogo from "../assets/amazonLogo.svg";
+import AmazonLogo from "../assets/amazon-dark.jpg";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignIn = () => {
   const [isSignin, setSignin] = useState(true);
@@ -13,27 +14,21 @@ const SignIn = () => {
     if (loginError) setError(null);
   }, [email, password]);
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false);
-      if (!email || !password) {
-        setError("Please fill in all fields.");
-        return;
+    if(email && password && email.includes("@")){
+      try{
+        await createUserWithEmailAndPassword(email, password),
+        console.log("User created");
+        } catch (error) {
+          setError(error.message);
+        }
       }
-      if (!/\S+@\S+\.\S+/.test(email)) {
-        setError("Please enter a valid email address.");
-        return;
-      }
-      alert(`Signed ${isSignin ? "in" : "up"} successfully!`);
-    }, 2000);
-  };
+    }
 
   return (
     <div className="relative flex flex-col gap-4 w-full max-w-screen overflow-x-hidden h-screen">
-      <div className="flex flex-col items-center gap-4 p-4">
+      <div className="flex flex-col items-center gap-4 p-16">
         <Link
           className="cursor-pointer flex amazon-logo items-start min-w-24"
           to={"/"}
@@ -41,11 +36,11 @@ const SignIn = () => {
           <img
             src={AmazonLogo}
             alt="Amazon Logo"
-            height={38}
+            height={32}
             className="h-9"
           />
         </Link>
-        <div className="flex flex-col border rounded divide-y w-min gap-4 p-5">
+        <div className="flex flex-col border rounded w-min gap-4 p-5">
           <div className="flex flex-col w-min gap-2.5">
             <span className="text-3xl mb-1.5">
               Sign {isSignin ? "in" : "up"}
