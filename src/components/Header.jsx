@@ -9,7 +9,9 @@ import { CartContext } from "../App";
 
 export default function Header() {
     console.log("Header");
-    // const { size: cartSize } = useContext(CartContext);
+    const  cartContext = useContext(CartContext);
+    console.log(cartContext);
+    const { size: cartSize } = cartContext || {size : 0};
     return (
         <div className="flex gap-2 items-center px-1 py-4 bg-[#131921]">
             {/* Amazon Logo */}
@@ -98,7 +100,7 @@ export default function Header() {
                     <div className="h-full flex items-end p-1 text-white relative">
                         <div className="flex gap-1 items-center">
                             <img className="w-10" src={CartIcon} alt="Cart Icon" />
-                            <span className="absolute top-[-4px] left-[22px] text-base font-bold text-[#f08806]">{"0"}</span>
+                            <span className="absolute top-[-4px] left-[22px] text-base font-bold text-[#f08806]">{cartSize}</span>
                         </div>
                         <span className="text-sm font-bold py-0.5 translate-y-2">Cart</span>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AmazonLogo from "../assets/amazonLogo.svg";
 
@@ -9,9 +9,26 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [passwordView, setPasswordView] = useState(false);
 
+  useEffect(() => {
+    if (loginError) setError(null);
+  }, [email, password]);
+
   const handleSignIn = (e) => {
     e.preventDefault();
-    // TODO : Logic
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      if (!email || !password) {
+        setError("Please fill in all fields.");
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Please enter a valid email address.");
+        return;
+      }
+      alert(`Signed ${isSignin ? "in" : "up"} successfully!`);
+    }, 2000);
   };
 
   return (
@@ -35,7 +52,7 @@ const SignIn = () => {
             </span>
             <form
               className="flex flex-col gap-1.5"
-              onSubmit={(e) => handleSubmit(e)}
+              onSubmit={(e) => handleSignIn(e)}
             >
               <span className="text-xs font-semibold">
                 Email or mobile phone number
@@ -44,7 +61,7 @@ const SignIn = () => {
                 className="text-sm rounded-sm border active:border-[#017184] border-black outline outline-4 active:outline-[#c8f3fa] hover:outline-[#c8f3fa] outline-white w-72 py-1 px-2.5"
                 type="email"
                 value={email}
-                placeholder="Enter your Email Address!"
+                placeholder="Enter your Email Address "
                 onInput={(e) => setEmail(e.target.value)}
               />
               {email && (

@@ -31,7 +31,7 @@ const Carousel = () => {
       return (
         <div className="relative flex justify-center w-full h-screen">
           <div 
-            className="left-0 top-[25%] cursor-pointer transition-all duration-300 ease-in-out" 
+            className="absolute left-0 top-[25%] cursor-pointer transition-all duration-300 ease-in-out" 
             onClick={nextSlide}
           >
             <img src={chevronLeft} alt="previous-btn" />

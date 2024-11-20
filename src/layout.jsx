@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="relative">
-      <div className="flex flex-col max-h-[100dvh]">
+      <div className="flex flex-col max-h-[100dvh] min-h-[100dvh] overflow-auto">
         <Header />
         <CategoryFilters openSidebar={() => setSidebarOpen(true)} />
         {children}
