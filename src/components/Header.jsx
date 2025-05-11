@@ -1,41 +1,51 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import AmazonLogo from "../assets/amazonLogo.svg";
 import locationPin from "../assets/location-pin.svg";
 import CartIcon from "../assets/cart.svg";
 import searchIcon from "../assets/search.svg";
-import { Link , useNavigate} from "react-router-dom";
-// import { CartContext } from "../App";
-// import './Header.css';
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../features/themeSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAuth } from "../firebase/auth";
 
 export default function Header() {
   console.log("Header");
-  // const  cartContext = useContext(CartContext);
-  // const { size: cartSize } = cartContext || {size : 0};
   const cartSize = useSelector((state) => state.cart.cartSize);
-
-  const theme = useSelector((store) => store.theme.theme);
-  const dispatch = useDispatch();
-  function handleClick() {
-    dispatch(toggleTheme());
-  }
-
-  const [searchQuery, setSearchQuery] = useState("");
+  const { isLoggedIn, name } = useAuth();
   const navigate = useNavigate();
 
+  // State to hold the location data
+  const [location, setLocation] = useState("Fetching location...");
+
+  // Fetching the user's location on component mount
+  useEffect(() => {
+    // Use the Geolocation API to get the user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // Call a geolocation API to convert latitude and longitude into a readable location name
+          (latitude, longitude);
+        },
+        (error) => {
+          setLocation("Unable to retrieve your location.");
+        }
+      );
+    } else {
+      setLocation("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
+  
+  // Handling search input
+  const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = () => {
-    // Navigate to the search page with the search query
     if (searchQuery.trim()) {
       navigate(`/search/${searchQuery.trim()}`);
     }
   };
 
-
   return (
     <div className="flex gap-2 items-center px-1 py-4 bg-[#131921]">
-      {/* Amazon Logo */}
-
       <Link to={"/"}>
         <HeaderContainer>
           <img
@@ -46,17 +56,7 @@ export default function Header() {
         </HeaderContainer>
       </Link>
 
-      {/* <HeaderContainer>
-        <button
-          className="flex text-white flex-col gap-1 items-center"
-          onClick={handleClick}
-        >
-          <p>Theme</p> <p>{theme}</p>
-        </button>
-      </HeaderContainer> */}
-
       {/* Location Box */}
-
       <HeaderContainer>
         <div className="h-full flex gap-1 items-center p-0.5">
           <img
@@ -66,23 +66,22 @@ export default function Header() {
           />
           <div className="flex flex-col gap-0.5 text-white">
             <span className="current-location text-xs font-normal">
-              Delivering to Dehradun 248001
+              Delivering to {name}
             </span>
-            <span className="text-sm font-bold">Update location</span>
+            <span className="text-sm font-bold">{location}</span>
           </div>
         </div>
       </HeaderContainer>
 
       {/* Search Box */}
-
-      <form className="min-w-[198px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between" onSubmit={handleSearch}>
+      <form
+        className="min-w-[198px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between"
+        onSubmit={handleSearch}
+      >
         <div>
           <select className="w-fit max-w-[46px] min-h-full border-transparent border-solid border-r-[#cdcdcd] bg-[#e6e6e6] text-sm">
             {options.map((data, index) => (
-              <option
-                value={data.charAt(0).toLowerCase() + data.slice(1)}
-                key={index}
-              >
+              <option value={data.charAt(0).toLowerCase() + data.slice(1)} key={index}>
                 {data}
               </option>
             ))}
@@ -101,7 +100,6 @@ export default function Header() {
       </form>
 
       {/* Language Select */}
-
       <HeaderContainer>
         <select className="h-fit flex p-2 text-sm font-bold items-end text-white bg-transparent">
           <option value={"en"} className="text-black">
@@ -114,10 +112,11 @@ export default function Header() {
       </HeaderContainer>
 
       {/* Account Menu */}
-
       <HeaderContainer>
         <div className="h-full flex justify-center items-start flex-col gap-0.5 text-white">
-          <span className="text-xs font-normal px-1">Hello, Sign in</span>
+          <span className="text-xs font-normal px-1">
+            Hello, {isLoggedIn ? name : "Sign In"}
+          </span>
           <select className="text-sm font-bold bg-transparent p-0 m-0 text-white">
             <option value={"account"} className="text-black">
               Account & Lists
@@ -132,17 +131,7 @@ export default function Header() {
         </div>
       </HeaderContainer>
 
-      {/* Return & Order Button */}
-
-      <HeaderContainer>
-        <button className="h-full flex justify-center items-start flex-col gap-0.5 p-1 text-white bg-transparent">
-          <span className="text-xs font-normal">Returns</span>
-          <span className="text-sm font-bold">& Orders</span>
-        </button>
-      </HeaderContainer>
-
       {/* Cart */}
-
       <Link to={"/cart"}>
         <HeaderContainer>
           <div className="h-full flex items-end p-1 text-white relative">

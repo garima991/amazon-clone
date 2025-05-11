@@ -21,12 +21,6 @@ const Search = () => {
     }
   }, [searchId]);
 
-  const handleSearchChange = (e) => {
-    const newSearchTerm = e.target.value;
-    setInputValue(newSearchTerm);
-    navigate(`/search/${newSearchTerm}`); // Update the URL dynamically
-  };
-
   return (
     <div className="search-page p-4">
       <h2 className="search-results-title text-xl font-semibold text-gray-800 mb-4">

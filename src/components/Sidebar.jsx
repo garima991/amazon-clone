@@ -1,11 +1,16 @@
 // import "./Sidebar.css";
 import profileIcon from "../assets/profile.svg";
-import { Link , NavLink} from "react-router-dom";
+import { Link , NavLink, useNavigate } from "react-router-dom";
 import chevron from "../assets/chevron.svg";
 import cross from "../assets/cross.svg";
+import { useAuth, logout } from "../firebase/auth";
 
 const Sidebar = ({ open, onClose }) => {
   console.log("Sidebar");
+
+  const {isLoggedIn, name} = useAuth();
+  console.log(isLoggedIn, name);
+
   return (
     open ? (
       <div className="w-full h-full flex absolute top-0 left-0 z-[5] bg-transparent">
@@ -13,10 +18,10 @@ const Sidebar = ({ open, onClose }) => {
         <div className="text-lg absolute top-0 left-0 z-[9] w-[360px] h-full bg-[white] flex flex-col overflow-y-auto">
           <button className="min-h-min px-8 py-2 bg-[#222F3E] font-bold text-[19px] leading-[25px] flex gap-2 text-white">
             <img src = {profileIcon} alt="" />
-            Hello, <NavLink to="/sign-in">sign in</NavLink>
+            Hello, <NavLink to="/sign-in">{isLoggedIn ? name : "Sign In"}</NavLink>
           </button>
           {sidebarData.map((data) => (
-            <ContentContainer data={data} />
+            <ContentContainer data={data} isLoggedIn = {isLoggedIn} key={data.title} />
           ))}
         </div>
         <button className="close h-10 w-10 aspect-square border border-white rounded-md text-white absolute left-[368px] top-2 z-10 bg-[#00000020] cursor-pointer" onClick={onClose}><img src={cross} alt="" /></button>
@@ -28,17 +33,34 @@ const Sidebar = ({ open, onClose }) => {
 };
 export default Sidebar;
 
-function ContentContainer({ data }) {
-  console.log(data);
+function ContentContainer({ data , isLoggedIn}) {
+  const navigate = useNavigate();
+  
+  const handleItemClick = (item) => {
+    if (item.title === "Sign Out") {
+      logout();
+      navigate("/sign-in");
+    }
+    if(isLoggedIn && item.title === "Your Account"){
+      navigate("/account");
+    }
+    if(item.title === "Sign In"){
+      navigate("/sign-in");
+    }
+  };
+
   return (
     <div className="content-flex flex-col px-8 py-2 border-[0.5px] border-solid border-gray-400">
       <div className="text-[18px] leading-6 font-bold text-[#111] py-2">{data?.title}</div>
       <ul className="content-list">
         {data?.items?.map((item, itemIndex) => (
-          <li key={itemIndex} >
-            <Link to="/" className="text-[14px] leading-4 text-[#111] font-medium cursor-pointer py-3.5 flex items-center justify-between">
+          <li key={itemIndex}>
+            <button 
+              onClick={() => handleItemClick(item)}
+              className="w-full text-left text-[14px] leading-4 text-[#111] font-medium cursor-pointer py-3.5 flex items-center justify-between"
+            >
               {item?.title} {item?.open ? <img src={chevron} alt="chevron icon" /> : null}
-            </Link>
+            </button>
           </li>
         ))}
       </ul>

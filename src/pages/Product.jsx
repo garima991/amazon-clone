@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams , Link} from "react-router-dom";
 import {data} from "../productData";
+import Footer from "../components/Footer";
 
 
 const Product = () => {
     return (
-        <div className="product-page p-4">
-        <h2 className="text-3xl font-semibold mb-6 text-center">Shop Products</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+        <div className="product-page">
+        <h2 className="text-3xl font-semibold mb-6 text-center mt-3">Shop Products</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 p-4">
           {data.map((product) => (
             <Link
               key={product.product_id}
@@ -36,6 +37,7 @@ const Product = () => {
             </Link>
           ))}
         </div>
+        <Footer/>
       </div>
     );
   };

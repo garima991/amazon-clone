@@ -64,6 +64,7 @@ const ProductCard = ({ data }) => {
 };
 
 export default ProductCard;
+
 // function addToCart(product_to_add) {
 //   let cart = localStorage.getItem("cart")
 //     ? JSON.parse(localStorage.getItem("cart"))

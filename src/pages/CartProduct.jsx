@@ -3,7 +3,6 @@ import { useDispatch} from "react-redux";
 
 const CartProduct = ({ data }) => {
   const dispatch = useDispatch();
-  
   const {
     product_id,
     product_name,
