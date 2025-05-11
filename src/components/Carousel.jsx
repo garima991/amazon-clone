@@ -5,9 +5,6 @@ import image3 from "../assets/carousel/image3.jpg";
 import image4 from "../assets/carousel/image4.jpg";
 import image5 from "../assets/carousel/image5.jpg";
 import image6 from "../assets/carousel/image6.jpg";
-import chevronLeft from "../assets/chevron-left.svg";
-import chevronRight from "../assets/chevron-right.svg";
-
 
 const Carousel = () => {
     const [currSlide, setCurrSlide] = useState(0);
@@ -30,12 +27,6 @@ const Carousel = () => {
     
       return (
         <div className="relative flex justify-center w-full h-screen">
-          <div 
-            className="absolute left-0 top-[25%] cursor-pointer transition-all duration-300 ease-in-out" 
-            onClick={nextSlide}
-          >
-            <img src={chevronLeft} alt="previous-btn" />
-          </div>
           
           <div className= "absolute flex w-full items-center justify-center">
             {imagesArray.map((item, index) => (
@@ -50,12 +41,7 @@ const Carousel = () => {
             ))}
           </div>
           
-          <div 
-            className="right-0 top-[25%] cursor-pointer transition-all duration-300 ease-in-out " 
-            onClick={prevSlide}
-          >
-            <img src={chevronRight} alt="next-btn"  />
-          </div>
+        
         </div>
       );
     };

@@ -1,9 +1,9 @@
 import React from "react";
 // import "./Home.css";
-export default function Card({ data, name }) {
+export default function Card({ data, name, onClick}) {
   console.log(name);
   return (
-    <div className="min-w-[310px] w-[32%] flex-1 flex flex-col gap-3 p-4 rounded-sm bg-white text-[#111] border-solid border-2 border-[#f0f2f2]">
+    <div onClick={onClick} className="min-w-[310px] w-[32%] flex-1 flex flex-col gap-3 p-4 rounded-sm bg-white text-[#111] border-solid border-2 border-[#f0f2f2]">
       <div className="text-[22px] font-bold leading-[27px]">{data.title}</div>
       <div className="flex flex-wrap justify-center items-center gap-3">
         {data.items.map((item) => (
