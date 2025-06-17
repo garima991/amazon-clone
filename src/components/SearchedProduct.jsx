@@ -1,6 +1,6 @@
-import { addToCart, removeFromCart } from "../global/reusableFunction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate , Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { addToCart, removeFromCart } from "../features/cartSlice";
 
 const SearchedProduct = ({ data, cartData, updateCart }) => {
   const {
@@ -27,11 +27,14 @@ const SearchedProduct = ({ data, cartData, updateCart }) => {
   return (
     <div className="cart-product flex gap-3 p-4 max-w-full border-b border-slate-300">
       <div class="h-[50%] aspect-h-1 p-8">
-      <img src={img_link} className="max-w-[180px]" />
+        <img src={img_link} className="max-w-[180px]" />
       </div>
       <div className="details flex-1 ">
         <div className="info flex flex-col gap-2">
-          <Link to={`/product/${product_id}`} className="text-base font-semibold">
+          <Link
+            to={`/product/${product_id}`}
+            className="text-base font-semibold"
+          >
             <div>{product_name}</div>
           </Link>
           <strong className="text-xl text-green-600">{discounted_price}</strong>
@@ -39,37 +42,12 @@ const SearchedProduct = ({ data, cartData, updateCart }) => {
         </div>
         <div className="controls mt-3">
           <div className="flex gap-2">
-            {countInCart ? (
-              <>
-                <button
-                  className={buttonStyleClass}
-                  onClick={() => dispatch(addToCart(data))}
-                >
-                  +
-                </button>
-                <button
-                  className={buttonStyleClass}
-                  onClick={() =>
-                    dispatch(removeFromCart({ product: data, quantity: 1 }))
-                  }
-                >
-                  -
-                </button>
-                <button
-                  className={buttonStyleClass}
-                  onClick={() => dispatch(removeFromCart({ product: data }))}
-                >
-                  delete
-                </button>
-              </>
-            ) : (
-              <button
-                className={buttonStyleClass}
-                onClick={() => dispatch(addToCart(data))}
-              >
-                Add To Cart
-              </button>
-            )}
+            <button
+              className={buttonStyleClass}
+              onClick={() => dispatch(addToCart(data))}
+            >
+              Add To Cart
+            </button>
           </div>
         </div>
       </div>

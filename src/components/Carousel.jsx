@@ -26,22 +26,55 @@ const Carousel = () => {
       }, [currSlide]);
     
       return (
-        <div className="relative flex justify-center w-full h-screen">
+        <div className="relative flex justify-center w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] xl:h-[90vh]">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-2 top-1/4 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors duration-200"
+            aria-label="Previous slide"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
           
-          <div className= "absolute flex w-full items-center justify-center">
+          <button
+            onClick={nextSlide}
+            className="absolute right-2 top-1/4 -translate-y-1/2 z-10 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors duration-200"
+            aria-label="Next slide"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Slides */}
+          <div className="absolute flex w-full items-center justify-center">
             {imagesArray.map((item, index) => (
               currSlide === index && (
                 <img 
                   key={index} 
                   src={item} 
                   alt="carousel slide" 
-                  className="w-full h-[90vh] transition duration-200 ease-in-out " 
+                  className="w-full h-full object-cover transition-opacity duration-500 ease-in-out" 
                 />
               )
             ))}
           </div>
-          
-        
+
+          {/* Slide Indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {imagesArray.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrSlide(index)}
+                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                  currSlide === index ? 'bg-white' : 'bg-white/50'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       );
     };

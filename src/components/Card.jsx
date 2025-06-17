@@ -1,7 +1,6 @@
-import React from "react";
-// import "./Home.css";
-export default function Card({ data, name, onClick}) {
-  console.log(name);
+
+export default function Card({ data, onClick}) {
+
   return (
     <div onClick={onClick} className="min-w-[310px] w-[32%] flex-1 flex flex-col gap-3 p-4 rounded-sm bg-white text-[#111] border-solid border-2 border-[#f0f2f2]">
       <div className="text-[22px] font-bold leading-[27px]">{data.title}</div>
@@ -19,9 +18,12 @@ export default function Card({ data, name, onClick}) {
           </div>
         ))}
       </div>
-      <a href= {data.redirect.label} className="flex justify-start items-center text-[#007185] cursor-pointer hover:text-[#c7501f]">
+      <button 
+        onClick={onClick}
+        className="flex justify-start items-center text-[#007185] cursor-pointer hover:text-[#c7501f]"
+      >
         {data.redirect.label}
-      </a>
+      </button>
     </div>
   );
 }

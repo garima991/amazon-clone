@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { addToCart, removeFromCart } from "../features/cartSlice";
-// import { CartContext } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = ({ data }) => {
@@ -12,52 +11,57 @@ const ProductCard = ({ data }) => {
   const product = cart.find((item) => item.product_id === data.product_id);
   const countInCart = product ? product.quantity : 0;
   const buttonStyleClass =
-    "bg-[#f0c14b] border border-[#a88734] border-t-[#9c7e31] border-b-[#846a29] text-[#111] p-1.5 rounded-lg cursor-pointer flex-1";
+    "bg-[#f0c14b] border border-[#a88734] border-t-[#9c7e31] border-b-[#846a29] text-[#111] p-1.5 rounded-lg cursor-pointer flex-1 text-sm md:text-base hover:bg-[#f4d078] transition-colors duration-200";
 
   // console.log("ProductCard", data.product_id, countInCart, cart, updateCart);
   
    return (
-    <div className="flex flex-col gap-2 p-2 border-2 border-[#f0f2f2] rounded-lg">
-      <img
-        className="h-[200px] w-fit max-w-[400px] object-cover"
-        src={data.img_link}
-        alt={data.product_name}
-      />
+    <div className="flex flex-col gap-2 p-2 border-2 border-[#f0f2f2] rounded-lg hover:shadow-lg transition-shadow duration-200">
+      <div className="relative w-full aspect-square md:aspect-auto md:h-[200px] flex items-center justify-center">
+        <img
+          className="h-full w-full object-contain p-2"
+          src={data.img_link}
+          alt={data.product_name}
+        />
+      </div>
 
-      <div className="flex gap-2">
-        {countInCart ? (
-          <>
+      <div className="flex flex-col gap-2">
+        <h3 className="text-sm md:text-base font-medium line-clamp-2">{data.product_name}</h3>
+        <p className="text-sm md:text-base font-bold">${data.price}</p>
+        
+        <div className="flex gap-2 flex-wrap">
+          {countInCart ? (
+            <>
+              <button
+                className={buttonStyleClass}
+                onClick={() => dispatch(addToCart(data))}
+              >
+                +
+              </button>
+              <button
+                className={buttonStyleClass}
+                onClick={() =>
+                  dispatch(removeFromCart({ product: data, quantity: 1 }))
+                }
+              >
+                -
+              </button>
+              <button
+                className={buttonStyleClass}
+                onClick={() => dispatch(removeFromCart({ product: data }))}
+              >
+                Remove
+              </button>
+            </>
+          ) : (
             <button
               className={buttonStyleClass}
-              onClick={() => {
-                console.log("added to acrt", cart);
-                dispatch(addToCart(data))}}
+              onClick={() => dispatch(addToCart(data))}
             >
-              +
+              Add To Cart
             </button>
-            <button
-              className={buttonStyleClass}
-              onClick={() =>
-                dispatch(removeFromCart({ product: data, quantity: 1 }))
-              }
-            >
-              -
-            </button>
-            <button
-              className={buttonStyleClass}
-              onClick={() => dispatch(removeFromCart({ product: data }))}
-            >
-              delete
-            </button>
-          </>
-        ) : (
-          <button
-            className={buttonStyleClass}
-            onClick={() => dispatch(addToCart(data))}
-          >
-            Add To Cart
-          </button>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

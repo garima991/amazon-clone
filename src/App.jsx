@@ -9,16 +9,12 @@ import Login from './components/Login';
 
 import {
   BrowserRouter,
-  createBrowserRouter,
   Route,
-  RouterProvider,
   Routes,
 } from "react-router-dom";
-import { createContext, useState } from "react";
-import ProductDetail from "./components/ProductDetails.jsx";
+
 import AuthProvider from "./firebase/auth.jsx";
 import Account from "./pages/Account.jsx";
-
 
 const layout = (element) => <Layout>{element}</Layout>;
 
@@ -27,7 +23,7 @@ const App = () => {
  
   
   return (
-      <AuthProvider>
+     <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={layout(<Home />)} />
@@ -43,7 +39,7 @@ const App = () => {
             
           </Routes>
         </BrowserRouter>
-        </AuthProvider>
+      </AuthProvider>
     //   </CartContext.Provider>
     // </ThemeContext.Provider>
   );
