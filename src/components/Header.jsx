@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AmazonLogo from "../assets/amazonLogo.svg";
 import locationPin from "../assets/location-pin.svg";
 import CartIcon from "../assets/cart.svg";
@@ -6,6 +6,7 @@ import searchIcon from "../assets/search.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth } from "../firebase/auth";
+
 
 export default function Header() {
   console.log("Header");
@@ -35,14 +36,39 @@ export default function Header() {
     }
   }, []);
 
-  
   // Handling search input
   const [searchQuery, setSearchQuery] = useState("");
-  const handleSearch = () => {
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchRef = useRef(null);
+
+  // Handle search submission
+  const handleSearch = (e) => {
+    e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search/${searchQuery.trim()}`);
+      setSearchQuery("");
     }
   };
+
+  // Handle Enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
+
+  
+  // Handle click outside search
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="flex gap-2 items-center px-1 py-4 bg-[#131921]">
@@ -75,33 +101,45 @@ export default function Header() {
 
       {/* Search Box */}
       <form
-        className="min-w-[198px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between"
+        ref={searchRef}
+        className={`min-w-[198px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between transition-all duration-200 ${
+          isSearchFocused ? 'ring-2 ring-[#FEBD69]' : ''
+        }`}
         onSubmit={handleSearch}
       >
-        <div>
-          <select className="w-fit max-w-[46px] min-h-full border-transparent border-solid border-r-[#cdcdcd] bg-[#e6e6e6] text-sm">
+        <div className="flex-1 flex">
+          <select 
+            className="w-fit max-w-[46px] min-h-full border-transparent border-solid border-r-[#cdcdcd] bg-[#e6e6e6] text-sm cursor-pointer hover:bg-[#d4d4d4] transition-colors duration-200"
+          >
             {options.map((data, index) => (
               <option value={data.charAt(0).toLowerCase() + data.slice(1)} key={index}>
                 {data}
               </option>
             ))}
           </select>
-          <input
-            className="search-input"
-            type="search"
-            placeholder="Search Amazon.in"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <div className="flex-1 flex items-center relative">
+            <input
+              className="search-input w-full px-2 py-2 outline-none text-black"
+              type="search"
+              placeholder="Search Amazon.in"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+              onKeyPress={handleKeyPress}
+            />
+          </div>
         </div>
-        <button className="min-h-full py-2 px-4 border-none bg-[#febd68] text-black text-sm cursor-pointer">
-          <img src={searchIcon} alt="" />
+        <button 
+          type="submit"
+          className="min-h-full py-2 px-4 border-none bg-[#febd68] text-black text-sm cursor-pointer hover:bg-[#f3a847] transition-colors duration-200"
+        >
+          <img src={searchIcon} alt="Search" />
         </button>
       </form>
 
       {/* Language Select */}
       <HeaderContainer>
-        <select className="h-fit flex p-2 text-sm font-bold items-end text-white bg-transparent">
+        <select className="h-fit flex p-2 text-sm font-bold items-end text-white bg-transparent cursor-pointer hover:bg-[#232f3e] transition-colors duration-200">
           <option value={"en"} className="text-black">
             🇺🇸 EN
           </option>
@@ -117,7 +155,7 @@ export default function Header() {
           <span className="text-xs font-normal px-1">
             Hello, {isLoggedIn ? name : "Sign In"}
           </span>
-          <select className="text-sm font-bold bg-transparent p-0 m-0 text-white">
+          <select className="text-sm font-bold bg-transparent p-0 m-0 text-white cursor-pointer hover:bg-[#232f3e] transition-colors duration-200">
             <option value={"account"} className="text-black">
               Account & Lists
             </option>
@@ -185,7 +223,6 @@ const options = [
   "Video Games",
   "Watches",
 ];
-
 const HeaderContainer = ({ children }) => {
   return (
     <div className="min-h-full flex items-end self-stretch rounded-sm outline-none hover:outline-[1.4px] hover:outline-white active:outline-[1.4px] active:outline-white">
