@@ -6,6 +6,7 @@ import searchIcon from "../assets/search.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAuth } from "../firebase/auth";
+import hamburgerIcon from "../assets/hamburger-icon.svg";
 
 
 export default function Header() {
@@ -71,11 +72,15 @@ export default function Header() {
   }, []);
 
   return (
-    <div className="flex gap-2 items-center px-1 py-4 bg-[#131921]">
+    <div className="flex flex-wrap md:flex-nowrap gap-2 items-center px-1 py-4 bg-[#131921] w-full">
+      {/* Hamburger for mobile */}
+      <button className="md:hidden p-2 mr-2" aria-label="Open menu">
+        <img src={hamburgerIcon} alt="Menu" className="w-7 h-7" />
+      </button>
       <Link to={"/"}>
         <HeaderContainer>
           <img
-            className="w-32 max-h-[50px] p-1"
+            className="w-24 sm:w-32 max-h-[50px] p-1"
             src={AmazonLogo}
             alt="Amazon Logo"
           />
@@ -84,7 +89,7 @@ export default function Header() {
 
       {/* Location Box */}
       <HeaderContainer>
-        <div className="h-full flex gap-1 items-center p-0.5">
+        <div className="h-full gap-1 items-center p-0.5 hidden lg:flex">
           <img
             className="pb-2 h-7 self-end"
             src={locationPin}
@@ -102,14 +107,14 @@ export default function Header() {
       {/* Search Box */}
       <form
         ref={searchRef}
-        className={`min-w-[198px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between transition-all duration-200 ${
+        className={`min-w-[120px] min-h-10 flex-1 flex rounded bg-white overflow-hidden justify-between transition-all duration-200 ${
           isSearchFocused ? 'ring-2 ring-[#FEBD69]' : ''
-        }`}
+        } mx-2`}
         onSubmit={handleSearch}
       >
         <div className="flex-1 flex">
           <select 
-            className="w-fit max-w-[46px] min-h-full border-transparent border-solid border-r-[#cdcdcd] bg-[#e6e6e6] text-sm cursor-pointer hover:bg-[#d4d4d4] transition-colors duration-200"
+            className="w-fit max-w-[46px] min-h-full border-transparent border-solid border-r-[#cdcdcd] bg-[#e6e6e6] text-xs sm:text-sm cursor-pointer hover:bg-[#d4d4d4] transition-colors duration-200"
           >
             {options.map((data, index) => (
               <option value={data.charAt(0).toLowerCase() + data.slice(1)} key={index}>
@@ -119,7 +124,7 @@ export default function Header() {
           </select>
           <div className="flex-1 flex items-center relative">
             <input
-              className="search-input w-full px-2 py-2 outline-none text-black"
+              className="search-input w-full px-2 py-2 outline-none text-black text-xs sm:text-sm"
               type="search"
               placeholder="Search Amazon.in"
               value={searchQuery}
@@ -131,15 +136,15 @@ export default function Header() {
         </div>
         <button 
           type="submit"
-          className="min-h-full py-2 px-4 border-none bg-[#febd68] text-black text-sm cursor-pointer hover:bg-[#f3a847] transition-colors duration-200"
+          className="min-h-full py-2 px-3 sm:px-4 border-none bg-[#febd68] text-black text-xs sm:text-sm cursor-pointer hover:bg-[#f3a847] transition-colors duration-200"
         >
-          <img src={searchIcon} alt="Search" />
+          <img src={searchIcon} alt="Search" className="w-5 h-5" />
         </button>
       </form>
 
       {/* Language Select */}
       <HeaderContainer>
-        <select className="h-fit flex p-2 text-sm font-bold items-end text-white bg-transparent cursor-pointer hover:bg-[#232f3e] transition-colors duration-200">
+        <select className="h-fit flex p-2 text-xs sm:text-sm font-bold items-end text-white bg-transparent cursor-pointer hover:bg-[#232f3e] transition-colors duration-200 hidden md:block">
           <option value={"en"} className="text-black">
             🇺🇸 EN
           </option>
@@ -151,11 +156,11 @@ export default function Header() {
 
       {/* Account Menu */}
       <HeaderContainer>
-        <div className="h-full flex justify-center items-start flex-col gap-0.5 text-white">
+        <div className="h-full justify-center items-start flex-col gap-0.5 text-white hidden md:flex">
           <span className="text-xs font-normal px-1">
             Hello, {isLoggedIn ? name : "Sign In"}
           </span>
-          <select className="text-sm font-bold bg-transparent p-0 m-0 text-white cursor-pointer hover:bg-[#232f3e] transition-colors duration-200">
+          <select className="text-xs sm:text-sm font-bold bg-transparent p-0 m-0 text-white cursor-pointer hover:bg-[#232f3e] transition-colors duration-200">
             <option value={"account"} className="text-black">
               Account & Lists
             </option>
@@ -174,12 +179,12 @@ export default function Header() {
         <HeaderContainer>
           <div className="h-full flex items-end p-1 text-white relative">
             <div className="flex gap-1 items-center">
-              <img className="w-10" src={CartIcon} alt="Cart Icon" />
-              <span className="absolute top-[-4px] left-[22px] text-base font-bold text-[#f08806]">
+              <img className="w-8 sm:w-10" src={CartIcon} alt="Cart Icon" />
+              <span className="absolute top-[-4px] left-[18px] sm:left-[22px] text-xs sm:text-base font-bold text-[#f08806]">
                 {cartSize}
               </span>
             </div>
-            <span className="text-sm font-bold py-0.5 translate-y-2">Cart</span>
+            <span className="text-xs sm:text-sm font-bold py-0.5 translate-y-2">Cart</span>
           </div>
         </HeaderContainer>
       </Link>
