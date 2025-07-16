@@ -21,7 +21,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "Explore all",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -46,7 +46,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "See all offers",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -71,7 +71,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "See more",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -96,7 +96,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "Shop now",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -121,7 +121,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "See more",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -146,7 +146,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "See more",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -171,7 +171,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "End of season sale",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
     {
@@ -196,107 +196,7 @@ export const sampleCardData = [
       ],
       redirect: {
         label: "See more",
-        url: "https://www.explorin.io",
-      },
-    },
-    {
-      title: "Custom appliances for your home | Up to 55% Off",
-      items: [
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-      ],
-      redirect: {
-        label: "See more",
-        url: "https://www.explorin.io",
-      },
-    },
-    {
-      title: "Custom Appliances for your home | Up to 55% Off",
-      items: [
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-      ],
-      redirect: {
-        label: "See more",
-        url: "https://www.explorin.io",
-      },
-    },
-    {
-      title: "Custom Appliances for your home | Up to 55% Off",
-      items: [
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-      ],
-      redirect: {
-        label: "See more",
-        url: "https://www.explorin.io",
-      },
-    },
-    {
-      title: "Custom Appliances for your home | Up to 55% Off",
-      items: [
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-        {
-          image: "https://m.media-amazon.com/images/I/41dtRPYZIAL._MCnd_AC_.jpg",
-          title: "Air Conditioner",
-        },
-      ],
-      redirect: {
-        label: "See more",
-        url: "https://www.explorin.io",
+        url: "",
       },
     },
   ];
